@@ -27,7 +27,7 @@ const getAllStates = async(req,res) => {
 
 const getState = async (req,res,next) => {
     if(!req?.params?.state) return res.status(400).json({'message': 'State code required'});
-    const state = await State.findOne({ statecode: req.params.state.toUpperCase()}).exec();
+    const state = await State.findOne({ stateCode: req.params.state.toUpperCase()}).exec();
     if(!state){
         return res.status(400).json({'message': 'Invalid state abbreviation parameter'});
     }
