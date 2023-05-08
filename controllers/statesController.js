@@ -25,20 +25,20 @@ const getAllStates = async(req,res) => {
     res.json(stateJson);
 }
 
-const getState = async (req,res,next) => {
-    if(!req?.params?.state) return res.status(400).json({'message': 'State code required'});
-    const state = await State.findOne({ stateCode: req.params.state.toUpperCase()}).exec();
-    if(!state){
-        return res.status(400).json({'message': 'Invalid state abbreviation parameter'});
+const getState = async (req, res, next) => {
+    if (!req?.params?.state) return res.status(400).json({ 'message': 'State code required.' });
+    const state = await State.findOne({ stateCode: req.params.state.toUpperCase() }).exec();
+    if (!state) {
+        return res.status(400).json({ "message": `Invalid state abbreviation parameter` });
     }
-    const stateInfo = statesJson.find(s => s.code == req.params.state.toUpperCase());
-
-    if(state.funfacts && state.funfacts.length > 0){ //is there  a funfact?
-         const funfacts = state.funfacts;
-         stateInfo['funfacts'] = funfacts;
-    }
-  res.json(stateInfo);
+    const jsonState = statesJson.find(s => s.code == req.params.state.toUpperCase());
+    if (state.funfacts && state.funfacts.length > 0) { 
+        const funfacts = state.funfacts;
+        jsonState['funfacts'] = funfacts;
+    }    
+    res.json(jsonState);
 }
+
 
 const getFunFact = async (req, res) => {
  if (!req?.params?.state) return res.status(400).json({'message':'State code required'});
