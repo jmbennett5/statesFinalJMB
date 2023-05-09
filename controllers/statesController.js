@@ -141,8 +141,8 @@ const updateFunFacts = async (req, res) => {
       return res.status(400).json({'message':`No Fun Fact found at that index for ${stateName}`});
     }
 
-    const theRightIndex = req.body.index -1;
-    state.funfacts[theRightIndex] = req.body.funfact
+    const theRightIndex = req.body.index -1;//make sure index is correct(arrays start at 0)
+    state.funfacts[theRightIndex] = req.body.funfact //update the given index.
     const result = await state.save();
     res.json(result);
 }
