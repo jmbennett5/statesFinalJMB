@@ -83,9 +83,9 @@ const postFunFacts = async (req, res) => {
     if (!req?.params?.state){
          return res.status(400).json({'message':'State code required'});
         }
-    const state = await State.findOne({state: req.params.state.toUpperCase()}).exec();
+    const state = await State.findOne({stateCode: req.params.state.toUpperCase()}).exec();
     if (!state){
-        return res.status(400).json({'message': `No state matches code ${req.params.stae}`})
+        return res.status(400).json({'message': `No state matches code ${req.params.state}`})
     } 
     if (req.body.funfacts){
         if (Array.isArray(req.body.funfacts)){
@@ -137,7 +137,7 @@ const deleteFunFact = async (req, res) => {
         return res.status(400).json({ "message": `No state matches code ${req.params.state}.` });
     }
    if(!req.body.index){
-    return res.status(400).json({'message':'STate fun fact index value required.'});
+    return res.status(400).json({'message':'State fun fact index value required.'});
    }
 
    const stateName = verifyStates.returnStateName(state.stateCode);
