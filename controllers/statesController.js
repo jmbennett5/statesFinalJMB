@@ -44,7 +44,7 @@ const getFunFact = async (req, res) => {
  if (!req?.params?.state) return res.status(400).json({'message':'State code required'});
  const state = await State.findOne({stateCode: req.params.state.toUpperCase()}).exec();
  if(!state){
-    return res.status(400).json({'message': 'Invalid state abbreviation paramater'});
+    return res.status(400).json({'message': 'Invalid state abbreviation parameter'});
  }
  const stateName = verifyStates.returnStateName(state.stateCode);
  if(!state.funfacts || state.funfacts.length < 1){
@@ -108,10 +108,10 @@ const postFunFacts = async (req, res) => {
         if (Array.isArray(req.body.funfacts)){
             state.funfacts.push(...req.body.funfacts)
         }else{
-            return res.status(400).json({'message': 'State fun facts value must be an array.'});
+            return res.status(400).json({'message': 'State fun facts value must be an array'});
         }
     } else {
-        return res.status(400).json({'message': 'State fun facts value required.'});
+        return res.status(400).json({'message': 'State fun facts value required'});
     }  
   const result = await state.save();
 
