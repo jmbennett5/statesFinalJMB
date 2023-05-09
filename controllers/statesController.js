@@ -154,7 +154,7 @@ const deleteFunFact = async (req, res) => {
         return res.status(400).json({ "message": `No state matches code ${req.params.state}.` });
     }
    if(!req.body.index){
-    return res.status(400).json({'message':'State fun fact index value required.'});
+    return res.status(400).json({'message':'State fun fact index value required'});
    }
 
    const stateName = verifyStates.returnStateName(state.stateCode);
