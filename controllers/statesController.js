@@ -32,7 +32,7 @@ const getState = async (req, res, next) => {
         return res.status(400).json({ "message": `Invalid state abbreviation parameter` });
     }
     const jsonState = statesJson.find(s => s.code == req.params.state.toUpperCase());
-    if (state.funfacts && state.funfacts.length > 0) { 
+    if (state.funfacts && state.funfacts.length > 0) { //are there funfacts?
         const funfacts = state.funfacts;
         jsonState['funfacts'] = funfacts;
     }    
@@ -47,16 +47,16 @@ const getFunFact = async (req, res) => {
     return res.status(400).json({'message': 'Invalid state abbreviation parameter'});
  }
  const stateName = verifyStates.returnStateName(state.stateCode);
- if(!state.funfacts || state.funfacts.length < 1){
+ if(!state.funfacts || state.funfacts.length < 1){ //no funfactws
     return res.json({'message': `No Fun Facts found for ${stateName}`});
  }
 
- const randomNumber = Math.floor(Math.random() * state.funfacts.length);
- res.json({'funfact': state.funfacts[randomNumber]})
+ const randomNumber = Math.floor(Math.random() * state.funfacts.length);//pick a random fact.
+ res.json({'funfact': state.funfacts[randomNumber]})//respond with the array index of the picked random number
 
 }
 const capitalInfo = async (req, res) =>{
-    verifyStates.returnMessage(req,res,'capital')
+    verifyStates.returnMessage(req,res,'capital') //call the message for capital info
 }
 const nicknameInfo = async (req, res) =>{
     verifyStates.returnMessage(req,res,'nickname')
@@ -100,13 +100,13 @@ const postFunFacts = async (req, res) => {
     if (!req?.params?.state){
          return res.status(400).json({'message':'State code required'});
         }
-    const state = await State.findOne({stateCode: req.params.state.toUpperCase()}).exec();
+    const state = await State.findOne({stateCode: req.params.state.toUpperCase()}).exec();//missed stateCode here before. check for state code.
     if (!state){
         return res.status(400).json({'message': `No state matches code ${req.params.state}`})
     } 
     if (req.body.funfacts){
-        if (Array.isArray(req.body.funfacts)){
-            state.funfacts.push(...req.body.funfacts)
+        if (Array.isArray(req.body.funfacts)){ //is this an array?
+            state.funfacts.push(...req.body.funfacts) //allow for multiple funfacts
         }else{
             return res.status(400).json({'message': 'State fun facts value must be an array'});
         }
@@ -167,7 +167,7 @@ const deleteFunFact = async (req, res) => {
    }
 
    const theRightIndex = req.body.index -1;
-   state.funfacts.splice(theRightIndex,1);
+   state.funfacts.splice(theRightIndex,1);//remove the requested item.
    const result = await state.save();
    res.json(result);
 }
