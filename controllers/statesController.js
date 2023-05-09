@@ -10,7 +10,7 @@ const getAllStates = async(req,res) => {
      stateJson.map(state =>{
         for (let i = 0; i < retStates.length; i++){
             if(retStates[i].stateCode === state.code && retStates[i].hasOwnProperty('funfacts')){ //does the mongo database have funfacts?
-                state.funfacts = retStates[i].funfacts
+                state.funfacts = retStates[i].funfacts //adds funfacts from mongoDB to the response.
             }
         };
      });
