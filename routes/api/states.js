@@ -20,16 +20,16 @@ router.route('/:state/funfact')
     .delete(statesController.deleteFunFact);
 
 router.route('/:state/capital')
-    .get((statesController.getInfo));
+    .get((statesController.capitalInfo));
 
 router.route('/:state/nickname')
-    .get((statesController.getInfo));
+    .get((statesController.nicknameInfo));
 
 router.route('/:state/population')
-    .get((statesController.getInfo));
+    .get((statesController.populationInfo));
 
 router.route('/:state/admission')
-    .get((statesController.getInfo));
+    .get((statesController.admissionInfo));
 
 
 module.exports = router; //test

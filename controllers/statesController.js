@@ -55,7 +55,24 @@ const getFunFact = async (req, res) => {
  res.json({'funfact': state.funfacts[randomNumber]})
 
 }
+const capitalInfo = async (req, res) =>{
+    verifyStates.returnMessage(req,res,'capital')
+}
+const nicknameInfo = async (req, res) =>{
+    verifyStates.returnMessage(req,res,'nickname')
+}
+const populationInfo = async (req, res) =>{
+    verifyStates.returnMessage(req,res,'population')
+}
+const admissionInfo = async (req, res) =>{
+    verifyStates.returnMessage(req,res,'admission')
+}
 
+
+
+
+
+/* This didn't work the way I wanted it to.
 const getInfo = async (req,res) => {
     const { infoType } = req.query;
 
@@ -78,7 +95,7 @@ const getInfo = async (req,res) => {
     }
     verifyStates.returnMessage(req,res,message);
 }
-
+*/
 const postFunFacts = async (req, res) => {
     if (!req?.params?.state){
          return res.status(400).json({'message':'State code required'});
@@ -150,7 +167,7 @@ const deleteFunFact = async (req, res) => {
    }
 
    const theRightIndex = req.body.index -1;
-   state.funfacts.spline(theRightIndex,1);
+   state.funfacts.splice(theRightIndex,1);
    const result = await state.save();
    res.json(result);
 }
@@ -159,8 +176,11 @@ module.exports = {
     getAllStates,
     getState,
     getFunFact,
-    getInfo,
+    capitalInfo,
     postFunFacts,
     updateFunFacts,
-    deleteFunFact
+    deleteFunFact,
+    nicknameInfo,
+    populationInfo,
+    admissionInfo
 }
